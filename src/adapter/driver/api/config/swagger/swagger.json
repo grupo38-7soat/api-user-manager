@@ -1,0 +1,149 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Processador de vídeo | Gerenciador de usuários",
+      "version": "1.0.0",
+      "description": "Documentação da API de gerenciamento de usuários do projeto de processamento de vídeo"
+    },
+    "baseUrl": "http://localhost:3000",
+    "tags": [
+      {
+        "name": "Usuário"
+      },
+      {
+        "name": "Autenticação"
+      }
+    ],
+    "paths": {
+      "/health": {
+        "get": {
+          "tags": [
+            "Health"
+          ],
+          "summary": "Valida a saúde da aplicação",
+          "operationId": "check",
+          "responses": {
+            "200": {
+              "description": "Status da aplicação",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessHealthCheckResponseBody"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno do servidor",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorHealthCheckResponseBody"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "SuccessHealthCheckResponseBody": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Status atual da aplicação",
+                  "example": "HEALTH"
+                },
+                "stage": {
+                  "type": "string",
+                  "description": "Ambiente da aplicação",
+                  "example": "DEVELOPMENT"
+                }
+              }
+            }
+          }
+        },
+        "ErrorHealthCheckResponseBody": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "Status atual da aplicação",
+                  "example": "UNHEALTH"
+                },
+                "stage": {
+                  "type": "string",
+                  "description": "Ambiente da aplicação",
+                  "example": "DEVELOPMENT"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "database": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "description": "Status do banco de dados",
+                          "example": "DOWN"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "DefaultErrorResponse": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensagem do erro",
+                  "example": "Algum erro aconteceu"
+                },
+                "cause": {
+                  "type": "string",
+                  "description": "Motivo do erro",
+                  "example": "UNKNOWN_EXCEPTION"
+                }
+              }
+            }
+          }
+        },
+        "NotFoundErrorResponse": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensagem do erro",
+                  "example": "Recurso não encontrado"
+                },
+                "cause": {
+                  "type": "string",
+                  "description": "Motivo do erro",
+                  "example": "NOTFOUND_EXCEPTION"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
