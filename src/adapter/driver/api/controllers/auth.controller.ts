@@ -10,13 +10,12 @@ export class AuthController implements IAuthController {
     request: ExpressRequest,
     response: ExpressResponse,
   ): Promise<ExpressResponse> {
-    console.log(
-      '🚀 ~ AuthController ~ request:',
-      request,
-      this.authenticationUseCase,
-    )
     try {
-      return HttpResponseHelper.onSucess(response, { data: 'OK' })
+      const authData = await this.authenticationUseCase.execute({
+        email: request?.body?.email,
+        password: request?.body?.password,
+      })
+      return HttpResponseHelper.onSucess(response, { data: authData })
     } catch (error) {
       return HttpResponseHelper.onError(response, { error })
     }

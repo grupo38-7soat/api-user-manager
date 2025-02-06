@@ -13,13 +13,28 @@ import { ExpressHttpServerAdapter } from '@adapter/driver/api/express-server.ada
 import { IHttpServer } from '@adapter/driver/api/types/http-server'
 import { UserRepository } from '@adapter/driven/database/repositories'
 import { PostgresConnectionAdapter } from '@adapter/driven/database/postgres-connection.adapter'
+import {
+  BcryptEncryptionServiceAdapter,
+  JsonWebTokenServiceAdapter,
+} from '@adapter/driven/cryptography'
 
 const postgresConnectionAdapter = new PostgresConnectionAdapter()
+const bcryptEncryptionServiceAdapter = new BcryptEncryptionServiceAdapter()
+const jsonWebTokenServiceAdapter = new JsonWebTokenServiceAdapter(
+  globalEnvs.cryptography.jwtSecret,
+)
 // repositories
 const userRepository = new UserRepository(postgresConnectionAdapter)
 // use-cases
-const authenticationUseCase = new AuthenticationUseCase()
-const createUserUseCase = new CreateUserUseCase(userRepository)
+const authenticationUseCase = new AuthenticationUseCase(
+  userRepository,
+  bcryptEncryptionServiceAdapter,
+  jsonWebTokenServiceAdapter,
+)
+const createUserUseCase = new CreateUserUseCase(
+  userRepository,
+  bcryptEncryptionServiceAdapter,
+)
 const getUserUseCase = new GetUserUseCase(userRepository)
 // controllers
 const healthController = new HealthController()

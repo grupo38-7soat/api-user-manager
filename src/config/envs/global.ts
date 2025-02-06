@@ -17,11 +17,19 @@ const databaseEnvs = {
   password: process.env.DATABASE_PASSWORD,
 }
 
+const cryptographyEnvs = {
+  jwtSecret: process.env.JWT_SECRET,
+  jwtExpiration: process.env.JWT_EXPIRATION,
+}
+
 export const globalEnvs = {
   api: {
     ...apiEnvs,
   },
   database: {
     ...databaseEnvs,
-  }
+  },
+  cryptography: {
+    ...cryptographyEnvs,
+  },
 }

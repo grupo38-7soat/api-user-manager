@@ -1,6 +1,7 @@
 import { DomainException, ExceptionCause } from '@core/domain/base'
 import { User } from '@core/domain/entities'
 import { IUserRepository } from '@core/domain/repositories'
+import { IPasswordEncryptService } from '@core/application/cryptography'
 import {
   formatDateWithTimezone,
   someEmptyField,
@@ -12,7 +13,10 @@ import {
 } from '../types/user'
 
 export class CreateUserUseCase implements ICreateUserUseCase {
-  constructor(private readonly userRepository: IUserRepository) {}
+  constructor(
+    private readonly userRepository: IUserRepository,
+    private readonly passwordEncrypt: IPasswordEncryptService,
+  ) {}
 
   async execute({
     birthdate,
@@ -26,8 +30,9 @@ export class CreateUserUseCase implements ICreateUserUseCase {
         ExceptionCause.MISSING_DATA,
       )
     }
+    const encryptedPassword = await this.passwordEncrypt.hashPassword(password)
     const { id, createdAt } = await this.userRepository.saveUser(
-      new User(birthdate, email, name, password),
+      new User(birthdate, email, name, encryptedPassword),
     )
     return {
       id,

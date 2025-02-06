@@ -67,7 +67,7 @@ export class UserRepository implements IUserRepository {
         formatDateWithoutTime(rows[0].birthdate),
         rows[0].email,
         rows[0].name,
-        null,
+        rows[0].password,
         rows[0].id,
         rows[0].created_at,
         rows[0].created_at,
