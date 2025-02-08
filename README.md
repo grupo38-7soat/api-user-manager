@@ -20,7 +20,6 @@ Implementar uma aplicação de gerenciamento e autenticação de usuários para 
 * Kubernetes
 * AWS
 * Sonarqube
-* RabbitMQ
 * k8s
 
 
