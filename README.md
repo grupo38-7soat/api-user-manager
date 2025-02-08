@@ -1,4 +1,4 @@
-# Tech-Challenge - Grupo 38-7SOAT
+# API User Manager - Grupo 38-7SOAT
 
 Este é o projeto desenvolvido durante o curso de pós-graduação em Arquitetura de Software da FIAP.
 
@@ -9,11 +9,11 @@ Membros do grupo:
 
 ## Propósito do projeto
 
-Implementar um sistema de gerenciamento de pedidos para uma empresa do setor alimentício.
+Implementar uma aplicação de gerenciamento e autenticação de usuários para um sistema de processamento de vídeos
 
 ## Stack utilizada
 
-* Node.js v18
+* Node.js v20
 * TypeScript
 * Postgresql
 * Docker
@@ -26,7 +26,6 @@ Implementar um sistema de gerenciamento de pedidos para uma empresa do setor ali
 
 ## Desenvolvimento do projeto
 
-* Separado entre 3 microserviços: Customer, Order e Payment, além do serviço de configuraçâo de Infraestrutura. Este projeto refere-se à aplicação que faz o cadastro de produtos e pedidos, gerando uma ordem de pagamento que é consumida pelo serviço Payment - envio feito através de fila desenvolvida com RabbitMQ, que faz a comunicação e atualização do status de pagamento após consulta à API do Mercado Pago.
 
 ## Instalação do projeto
 
@@ -39,7 +38,7 @@ Caso não tenha o Docker instalado, siga as instruções para seu sistema operac
 - Fazer build da imagem Docker localmente com o comando abaixo:
 
 ```bash
-❯ docker build -t tech-challenge:latest .
+❯ docker build -t api-user-manager:latest .
 ```
 
 # Deploy
@@ -49,7 +48,7 @@ Para realizar o deploy desta aplicação, foi utilizado a integração do GitHub
 ### Diagramas de fluxo
 
 Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos:
-Todos os diagramas apresentados estão disponíveis no 
+Todos os diagramas apresentados estão disponíveis no
 
 [Miro](https://miro.com/app/board/uXjVKUHWBkY=/?share_link_id=42148422473).
 
