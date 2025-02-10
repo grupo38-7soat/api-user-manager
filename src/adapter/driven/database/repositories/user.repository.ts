@@ -15,7 +15,7 @@ type UserData = {
 }
 
 export class UserRepository implements IUserRepository {
-  table: string
+  private table: string
 
   constructor(
     private readonly postgresConnectionAdapter: PostgresConnectionAdapter,
