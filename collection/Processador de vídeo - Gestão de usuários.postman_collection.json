@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "d55ff610-9324-42a6-8c8e-916e47ae9c63",
+		"name": "Gestão de usuários",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24951685"
+	},
+	"item": [
+		{
+			"name": "Criar novo usuário",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"birthdate\": \"1995-04-08\",\r\n    \"name\": \"Lucas Santos\",\r\n    \"email\": \"lsantos@gmail.com\",\r\n    \"password\": \"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fazer autenticação",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"lsantos@gmail.com\",\r\n    \"password\": \"pass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/autenticacao",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"autenticacao"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar usuário",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/usuarios/b5722454-449d-4c92-ae33-16d1a8a3ff12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"b5722454-449d-4c92-ae33-16d1a8a3ff12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
