@@ -54,15 +54,15 @@
           "summary": "Realiza o login do usuário",
           "operationId": "authenticate",
           "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MakeLoginRequestBody"
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MakeLoginRequestBody"
+                }
               }
             }
-          }
-        },
+          },
           "responses": {
             "200": {
               "description": "Login do usuário",
