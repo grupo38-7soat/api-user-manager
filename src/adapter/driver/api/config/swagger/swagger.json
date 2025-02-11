@@ -45,6 +45,140 @@
             }
           }
         }
+      },
+      "/autenticacao": {
+        "post": {
+          "tags": [
+            "Autenticação"
+          ],
+          "summary": "Realiza o login do usuário",
+          "operationId": "authenticate",
+          "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MakeLoginRequestBody"
+              }
+            }
+          }
+        },
+          "responses": {
+            "200": {
+              "description": "Login do usuário",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessMakeLoginResponseBody"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Não autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UnauthorizedErrorResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno do servidor",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DefaultErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/usuarios": {
+        "post": {
+          "tags": [
+            "Usuario"
+          ],
+          "summary": "Realiza a criação de usuário",
+          "operationId": "createUser",
+          "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserRequestBody"
+              }
+            }
+          }
+        },
+          "responses": {
+            "200": {
+              "description": "Criação do usuário",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessCreateUserResponseBody"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno do servidor",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DefaultErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/usuarios/{id}": {
+        "get": {
+          "tags": [
+            "Usuario"
+          ],
+          "summary": "Consulta um usuário baseado no seu id",
+          "operationId": "getUser",
+          "parameters": [
+            {
+              "name": "id",
+              "description": "Id do usuário",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Informação do usuário",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessGetUserResponseBody"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno do servidor",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DefaultErrorResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "components": {
@@ -104,6 +238,131 @@
             }
           }
         },
+        "MakeLoginRequestBody": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "description": "E-mail do usuário",
+              "example": "john.doe@gmail.com"
+            },
+            "password": {
+              "type": "string",
+              "description": "Senha do usuário",
+              "example": "1234pass"
+            }
+          },
+          "required": [
+            "email",
+            "password"
+          ]
+        },
+        "SuccessMakeLoginResponseBody": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "description": "Token JWT",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY4MTk0MjhmLTAwOTktNGE4NC1hYjkzLWNlODdkYmV..."
+                }
+              }
+            }
+          }
+        },
+        "SuccessGetUserResponseBody": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Id do usuário",
+                  "example": "f819428f-0099-4a84-ab93-ce87dbee20da"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "Email do usuário",
+                  "example": "john.doe@gmail.com"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Nome do usuário",
+                  "example": "John Doe"
+                },
+                "birthdate": {
+                  "type": "string",
+                  "description": "Data de nascimento do usuário",
+                  "example": "1990-01-01"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "description": "Data de criação do usuário",
+                  "example": "2024-05-23T03:23:07.956Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "description": "Data da última atualização do usuário",
+                  "example": "2024-05-23T03:23:07.956Z"
+                }
+              }
+            }
+          }
+        },
+        "CreateUserRequestBody": {
+          "type": "object",
+          "properties": {
+            "birthdate": {
+              "type": "string",
+              "description": "Data de nascimento do usuário",
+              "example": "1990-01-01"
+            },
+            "name": {
+              "type": "string",
+              "description": "Nome do usuário",
+              "example": "John Doe"
+            },
+            "email": {
+              "type": "string",
+              "description": "E-mail do usuário",
+              "example": "john.doe@gmail.com"
+            },
+            "password": {
+              "type": "string",
+              "description": "Senha do usuário",
+              "example": "1234pass"
+            }
+          },
+          "required": [
+            "birthdate",
+            "name",
+            "email",
+            "password"
+          ]
+        },
+        "SuccessCreateUserResponseBody": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Id do usuário",
+                  "example": "f819428f-0099-4a84-ab93-ce87dbee20da"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "description": "Data de criação do usuário",
+                  "example": "2024-05-23T03:23:07.956Z"
+                }
+              }
+            }
+          }
+        },
         "DefaultErrorResponse": {
           "type": "object",
           "properties": {
@@ -139,6 +398,26 @@
                   "type": "string",
                   "description": "Motivo do erro",
                   "example": "NOTFOUND_EXCEPTION"
+                }
+              }
+            }
+          }
+        },
+        "UnauthorizedErrorResponse": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensagem do erro",
+                  "example": "E-mail ou senha inválido"
+                },
+                "cause": {
+                  "type": "string",
+                  "description": "Motivo do erro",
+                  "example": "UNAUTHORIZED_ACCESS"
                 }
               }
             }
