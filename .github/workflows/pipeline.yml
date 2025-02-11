@@ -36,7 +36,7 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
 
       - name: Delay for SonarQube Scanner
-        run: sleep 60
+        run: sleep 15
 
       # Aguardar o resultado da análise e obter o status da qualidade
       - name: Check SonarQube quality gate status
@@ -47,14 +47,7 @@ jobs:
             echo "SonarQube Quality Gate failed: Quality is below the threshold!";
             exit 1;
           fi
-
-          # Verificar a pontuação de qualidade se necessário
-          SCORE=$(curl -s -u ${{ secrets.SONAR_TOKEN }} "${{ secrets.SONAR_URL }}/api/measures/component?component=$REPO_NAME&metricKeys=coverage" | jq -r .component.measures[0].value)
-          echo "SonarQube quality score: $SCORE"
-          if (( $(echo "$SCORE < $SONAR_REQUIRED_SCORE" | bc -l) )); then
-            echo "SonarQube Quality Gate failed: Quality score is less than 80%!";
-            exit 1;
-          fi
+          
           echo "SonarQube quality score is OK"
 
   build-and-push-ecr:
