@@ -5,7 +5,7 @@ on:
 
 env:
   CLUSTER_NAME: "FIAP-infra-hackathon"  # Nome do cluster EKS
-  SONAR_REQUIRED_SCORE: 70
+  SONAR_REQUIRED_SCORE: 60
 
 jobs:
   build:
@@ -47,7 +47,14 @@ jobs:
             echo "SonarQube Quality Gate failed: Quality is below the threshold!";
             exit 1;
           fi
-          
+
+          # Verificar a pontuação de qualidade se necessário
+          SCORE=$(curl -s -u ${{ secrets.SONAR_TOKEN }} "${{ secrets.SONAR_URL }}/api/measures/component?component=$REPO_NAME&metricKeys=coverage" | jq -r .component.measures[0].value)
+          echo "SonarQube quality score: $SCORE"
+          if (( $(echo "$SCORE < $SONAR_REQUIRED_SCORE" | bc -l) )); then
+            echo "SonarQube Quality Gate failed: Quality score is less than 60%!";
+            exit 1;
+          fi
           echo "SonarQube quality score is OK"
 
   build-and-push-ecr:
