@@ -12,6 +12,7 @@ data:
   DATABASE_PASSWORD: ${DATABASE_PASSWORD}
   DATABASE_NAME: ${DATABASE_NAME}
   JWT_SECRET: ${JWT_SECRET}
+  SERVER_PORT: ${SERVER_PORT}
 ---
 apiVersion: apps/v1
 kind: Deployment
